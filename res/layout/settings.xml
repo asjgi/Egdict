@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#84CBFF" >
+
+        <Button
+            android:id="@+id/setting_back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/setting_back_button" />
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="12dp"
+            android:background="#84CBFF"
+            android:text="@string/setting_save_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/title_button_engdict"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/setting_back_button"
+            android:background="#84CBFF"
+            android:text="@string/setting_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_title"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="#D9F1FF" >
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:text="@string/setting_frequency_button"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_Frequency_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="82dp" >
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            style="@style/CustomSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="28dp"
+            android:max="100"
+            android:progress="10" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekBar2"
+            android:layout_marginLeft="18dp"
+            android:text="  0                                        50                                   100%"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_type_blank"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#FAFAFA" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_type"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="#D9F1FF" >
+
+        <TextView
+            android:id="@+id/textView_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:text="@string/setting_type_title"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="80dp"
+            android:layout_weight="1"
+            android:drawableStart="#84CBFF" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:checked="true" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/RadioGroupText"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/setting_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_weight="1"
+            android:text="@string/setting_phrase_text"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/setting_phrase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:text="@string/setting_word_text"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_level_blank"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#FAFAFA" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_level"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="#D9F1FF" >
+
+        <TextView
+            android:id="@+id/textView_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:text="@string/setting_level_title"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_Level_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="95dp" >
+
+        <RatingBar
+            android:id="@+id/seekBar1"
+            style="@style/StarRatingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="28dp"
+            android:max="10"
+            android:progress="10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekBar1"
+            android:layout_marginLeft="18dp"
+            android:text="      0                                     5                                       10 "
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_level_radio_blank"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#FAFAFA" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="75dp"
+            android:layout_weight="1"
+            style="@drawable/radio_button_on"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="125dp"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/RadioGroupText_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <ImageSwitcher
+            android:id="@+id/imageswicher_easy"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/easy_image" />
+
+        <TextView
+            android:id="@+id/level_easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_level_easy"
+            android:textColor="#000000" />
+
+        <ImageSwitcher
+            android:id="@+id/imageswicher_difficult"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="110dp"
+            android:background="@drawable/difficult_image" />
+
+        <TextView
+            android:id="@+id/level_dificult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_level_dificult"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_level_radio_blank_final"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginTop="20dp"
+        android:background="#FAFAFA" />
+
+</LinearLayout>

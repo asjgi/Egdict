@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="engdict.player.notFree"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+
+    <!-- caouly Add code -->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- caouly Add code -->
+
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name="engdict.player.notFree.logo"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="engdict.player.notFree.main"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="engdict.player.notFree.video"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+
+                <data android:mimeType="video/*" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data android:scheme="rtsp" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data android:scheme="http" >
+                </data>
+                <data android:mimeType="video/mpg" >
+                </data>
+                <data android:mimeType="video/avi" >
+                </data>
+                <data android:mimeType="video/asf" >
+                </data>
+                <data android:mimeType="video/wmv" >
+                </data>
+                <data android:mimeType="video/mp4" >
+                </data>
+                <data android:mimeType="video/mkv" >
+                </data>
+                <data android:mimeType="video/m4v" >
+                </data>
+                <data android:mimeType="video/3gp" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data android:scheme="ftp" >
+                </data>
+                <data android:mimeType="video/mpg" >
+                </data>
+                <data android:mimeType="video/avi" >
+                </data>
+                <data android:mimeType="video/asf" >
+                </data>
+                <data android:mimeType="video/wmv" >
+                </data>
+                <data android:mimeType="video/mp4" >
+                </data>
+                <data android:mimeType="video/mkv" >
+                </data>
+                <data android:mimeType="video/m4v" >
+                </data>
+                <data android:mimeType="video/3gp" >
+                </data>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="RankingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="SelectActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="DictationActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="SummaryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="MainActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- caouly Add code -->
+        <activity
+            android:name="XMLActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="@string/title_activity_xml" >
+        </activity>
+
+        <!-- caouly Add code -->
+        <activity android:name="Update_check" >
+        </activity>
+    </application>
+
+</manifest>

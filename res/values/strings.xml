@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">잉그딕트</string>
+    <string name="app_settings">Settings</string>
+    <string name="how_to_use">How to use Engdict</string>
+    <string name="information">information</string>
+    <string name="app_name_english">EngDict</string>
+    <string name="title_button_more">More</string>
+    <string name="setting_button">Settings</string>
+    <string name="setting_frequency_button">Frequency</string>
+    <string name="setting_type_title">Type</string>
+    <string name="setting_level_title">Level</string>
+    <string name="setting_level_easy">Easy</string>
+    <string name="setting_level_dificult">Difficult</string>
+    <string name="setting_word_text">Word</string>
+    <string name="setting_phrase_text">Phrase</string>
+    <string name="setting_save_button">Save</string>
+    <string name="alert_msg_exit">Close or FaceBook</string>
+    <string name="title_activity_xml">XMLActivity</string>
+    <string name="button_yes">Close</string>
+    <string name="button_repeat">Repeat</string>
+    <string name="button_show_all">Show_all</string>
+    <string name="button_end">End</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_no">Facebook</string>
+
+</resources>
