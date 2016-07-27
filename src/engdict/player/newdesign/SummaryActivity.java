@@ -1,4 +1,4 @@
-package engdict.player.notFree;
+package engdict.player.newdesign;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -135,6 +136,7 @@ public class SummaryActivity extends Activity {
 
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	protected void saveImage(Bitmap bmScreen2) {
 		// TODO Auto-generated method stub
 

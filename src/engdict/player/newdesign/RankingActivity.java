@@ -1,4 +1,4 @@
-package engdict.player.notFree;
+package engdict.player.newdesign;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import engdict.player.notFree.R;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

@@ -6,6 +6,33 @@
     android:background="@drawable/dictation"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#84CBFF" >
+
+        <Button
+            android:id="@+id/setting_back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/setting_back_button" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="12dp"
+            android:background="#84CBFF"
+            android:onClick="onClick"
+            android:text="@string/video_end"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/frameLayout1"
         android:layout_width="match_parent"
@@ -14,34 +41,40 @@
         <VideoView
             android:id="@+id/videoView1"
             android:layout_width="match_parent"
-            android:layout_height="285dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:keepScreenOn="true" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/subtitle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:gravity="center"
-        android:shadowRadius="2"
-        android:textColor="#676975"
-        android:textSize="24dp" />
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowRadius="2"
+            android:textColor="#676975"
+            android:textSize="24sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="51dp" >
 
-        <engdict.player.notFree.airplane
+        <engdict.player.newdesign.airplane
             android:id="@+id/airplane"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical" >
 
         <TextView
@@ -52,62 +85,63 @@
             android:gravity="center"
             android:textColor="#FF1010"
             android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/smiBlank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:cursorVisible="false"
-            android:ems="10"
-            android:inputType="textVisiblePassword" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="#8000000a"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="#339EFF"
+            android:drawableTop="@drawable/video_skip_button"
             android:onClick="onClick"
             android:text="@string/button_skip"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/smiBlank"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="3"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:inputType="textVisiblePassword" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="#8000000a"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="#339EFF"
+            android:drawableTop="@drawable/video_repeat_button"
             android:onClick="onClick"
             android:text="@string/button_repeat"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="#8000000a"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="#339EFF"
+            android:drawableTop="@drawable/video_showall_button"
             android:onClick="onClick"
-            android:text="@string/button_show_all"
+            android:text="@string/button_answer"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="#8000000a"
-            android:onClick="onClick"
-            android:text="@string/button_end"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

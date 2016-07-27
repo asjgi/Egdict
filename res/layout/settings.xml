@@ -45,7 +45,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout_title"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="20dp"
         android:background="#D9F1FF" >
 
         <TextView
@@ -220,12 +220,12 @@
 
         <RadioButton
             android:id="@+id/radioButton3"
+            style="@drawable/radio_button_on"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
-            style="@drawable/radio_button_on"
             android:checked="true" />
 
         <RadioButton

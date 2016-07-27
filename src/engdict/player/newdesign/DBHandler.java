@@ -1,4 +1,4 @@
-package engdict.player.notFree;
+package engdict.player.newdesign;
 
 import android.content.ContentValues;
 import android.content.Context;

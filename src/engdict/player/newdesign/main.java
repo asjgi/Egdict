@@ -1,4 +1,4 @@
-package engdict.player.notFree;
+package engdict.player.newdesign;
 
 import java.io.File;
 import java.text.NumberFormat;

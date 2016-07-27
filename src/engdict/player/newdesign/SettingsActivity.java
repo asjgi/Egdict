@@ -1,6 +1,5 @@
-package engdict.player.notFree;
+package engdict.player.newdesign;
 
-import engdict.player.notFree.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
