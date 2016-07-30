@@ -54,40 +54,29 @@ class blankedSmiData extends smiData {
 	int smiCount;
 	boolean correctAnswer;
 
-	static String easyWordTable[] = { "mother", "school", "lesson", "break",
-			"world", "father", "thing", "house", "dialog", "morning", "today",
-			"birthday", "brother", "right", "child", "earth", "farmer",
-			"teacher", "friend", "family", "country", "money", "class",
-			"water", "please", "future", "happy", "night", "place", "student",
-			"tomorrow", "woman", "again", "another", "beautiful", "clock",
-			"doctor", "every", "great", "language", "little", "sorry", "thank",
-			"sport", "weather", "dinner", "music", "picture", "question",
-			"afternoon", "different", "really", "computer", "animal", "letter",
-			"lunch", "watch", "together", "yesterday", "small", "sister",
-			"science", "example", "street", "winter", "diary", "spring",
-			"important", "interesting", "speak", "excuse", "always", "prince",
-			"uncle", "summer", "grandfather", "river", "table", "baseball",
-			"tennis", "answer", "brown", "evening", "problem", "course",
-			"mountain", "homework", "young", "write", "parent", "clothes",
-			"soccer", "north", "never", "often", "learn", "light", "window",
-			"party", "south", "building", "number", "change", "newspaper",
-			"flower", "history", "hello", "saturday", "sunday", "almost",
-			"bicycle", "large", "present", "sound", "sometimes", "movie",
-			"minute", "person", "paper", "second", "listen", "welcome",
-			"early", "pretty", "later", "company", "culture", "experience",
-			"education", "effect", "liberty", "affair"
+	static String easyWordTable[] = { "mother", "school", "lesson", "break", "world", "father", "thing", "house",
+			"dialog", "morning", "today", "birthday", "brother", "right", "child", "earth", "farmer", "teacher",
+			"friend", "family", "country", "money", "class", "water", "please", "future", "happy", "night", "place",
+			"student", "tomorrow", "woman", "again", "another", "beautiful", "clock", "doctor", "every", "great",
+			"language", "little", "sorry", "thank", "sport", "weather", "dinner", "music", "picture", "question",
+			"afternoon", "different", "really", "computer", "animal", "letter", "lunch", "watch", "together",
+			"yesterday", "small", "sister", "science", "example", "street", "winter", "diary", "spring", "important",
+			"interesting", "speak", "excuse", "always", "prince", "uncle", "summer", "grandfather", "river", "table",
+			"baseball", "tennis", "answer", "brown", "evening", "problem", "course", "mountain", "homework", "young",
+			"write", "parent", "clothes", "soccer", "north", "never", "often", "learn", "light", "window", "party",
+			"south", "building", "number", "change", "newspaper", "flower", "history", "hello", "saturday", "sunday",
+			"almost", "bicycle", "large", "present", "sound", "sometimes", "movie", "minute", "person", "paper",
+			"second", "listen", "welcome", "early", "pretty", "later", "company", "culture", "experience", "education",
+			"effect", "liberty", "affair"
 
 	};
-	static String easyCommonWordTable[] = { "that", "their", "when", "how",
-			"what", "where", "why", "who", "which", "our", "have", "make",
-			"take", "order", "could", "would", "should", "done", "your", "her",
-			"him", "they", "been", "this", "okay", "yeah", "them", "be",
-			"there", "and", "for", "not", "with", "but", "from", "say", "she",
-			"will", "out", "about", "can", "like", "time", "just", "know",
-			"people", "into", "year", "good", "some", "see", "other", "than",
-			"then", "look", "only", "come", "over", "think", "also", "back",
-			"after", "use", "two", "work", "first", "way", "well", "even",
-			"new", "want", "because", "any", "give", "day", "most" };
+	static String easyCommonWordTable[] = { "that", "their", "when", "how", "what", "where", "why", "who", "which",
+			"our", "have", "make", "take", "order", "could", "would", "should", "done", "your", "her", "him", "they",
+			"been", "this", "okay", "yeah", "them", "be", "there", "and", "for", "not", "with", "but", "from", "say",
+			"she", "will", "out", "about", "can", "like", "time", "just", "know", "people", "into", "year", "good",
+			"some", "see", "other", "than", "then", "look", "only", "come", "over", "think", "also", "back", "after",
+			"use", "two", "work", "first", "way", "well", "even", "new", "want", "because", "any", "give", "day",
+			"most" };
 
 	blankedSmiData(long time, String text) {
 		super(time, text);
@@ -97,8 +86,7 @@ class blankedSmiData extends smiData {
 		this.correctAnswer = false;
 	}
 
-	public void setBlank(int count, boolean wordNotSentence, boolean easy,
-			int maxBlank, int frequency) {
+	public void setBlank(int count, boolean wordNotSentence, boolean easy, int maxBlank, int frequency) {
 		int freq, randNum; /* adjusted frequency */
 		int cnt = 0, startWordCnt = 0;
 
@@ -181,15 +169,16 @@ class blankedSmiData extends smiData {
 					// Log.w("setBlank","word="+arr[wordCnt]);
 					if (arr[wordCnt].length() > 4) {
 						for (cnt = 0; cnt < easyWordTable.length; cnt++) {
-							// Log.w("setBlank","easyWordTable word="+easyWordTable[cnt]);
+							// Log.w("setBlank","easyWordTable
+							// word="+easyWordTable[cnt]);
 
-							if (easyWordTable[cnt]
-									.equalsIgnoreCase(arr[wordCnt]) == true) {
+							if (easyWordTable[cnt].equalsIgnoreCase(arr[wordCnt]) == true) {
 								break;
 							}
 						}
 						if (cnt < easyWordTable.length) {
-							// Log.w("setBlank","Easy word="+easyWordTable[cnt]);
+							// Log.w("setBlank","Easy
+							// word="+easyWordTable[cnt]);
 							break;
 						}
 					} else if (arr[wordCnt].length() == 4)// let's treat 4
@@ -206,8 +195,7 @@ class blankedSmiData extends smiData {
 																				// common
 																				// words
 						{
-							if (easyCommonWordTable[cnt]
-									.equalsIgnoreCase(arr[wordCnt]) == true) {
+							if (easyCommonWordTable[cnt].equalsIgnoreCase(arr[wordCnt]) == true) {
 								break;
 							}
 						}
@@ -271,8 +259,7 @@ class blankedSmiData extends smiData {
 			String[] arr = modifiedText.split("#");
 			// Log.w("setBlank","arr length="+arr.length);
 			for (sentenceCnt = 0; sentenceCnt < arr.length; sentenceCnt++) {
-				if (arr[sentenceCnt].length() <= maxBlank
-						&& arr[sentenceCnt].length() > 3)
+				if (arr[sentenceCnt].length() <= maxBlank && arr[sentenceCnt].length() > 3)
 					break;
 			}
 
@@ -398,9 +385,7 @@ public class video extends Activity {
 				useSmi = false;
 			}
 		} else {
-			String temp = iPath.toString().substring(0,
-					iPath.toString().lastIndexOf("."))
-					+ ".smi";
+			String temp = iPath.toString().substring(0, iPath.toString().lastIndexOf(".")) + ".smi";
 			try {
 				iSmiPath = new URL(temp);
 				useSmi = true;
@@ -413,12 +398,10 @@ public class video extends Activity {
 		try {
 			BufferedReader in;
 			if (useWeb == false) {
-				in = new BufferedReader(new InputStreamReader(
-						new FileInputStream(new File(smiFile.toString())),
-						"MS949"));
+				in = new BufferedReader(
+						new InputStreamReader(new FileInputStream(new File(smiFile.toString())), "MS949"));
 			} else {
-				in = new BufferedReader(new InputStreamReader(
-						iSmiPath.openStream(), "MS949"));
+				in = new BufferedReader(new InputStreamReader(iSmiPath.openStream(), "MS949"));
 			}
 
 			String s;
@@ -432,8 +415,7 @@ public class video extends Activity {
 					if (time != -1) {
 						parsedSmi.add(new blankedSmiData(time, text));
 					}
-					time = Integer.parseInt(s.substring(s.indexOf("=") + 1,
-							s.indexOf(">")));
+					time = Integer.parseInt(s.substring(s.indexOf("=") + 1, s.indexOf(">")));
 					text = s.substring(s.indexOf(">") + 1, s.length());
 					text = text.substring(text.indexOf(">") + 1, text.length());
 				} else {
@@ -526,28 +508,18 @@ public class video extends Activity {
 									videoPaused = true;
 
 									// compare input with blanked text
-									blankedWords = parsedSmi
-											.get(prevCountSmi)
-											.gettext()
-											.substring(
-													parsedSmi.get(prevCountSmi).blankPos,
-													parsedSmi.get(prevCountSmi).blankPos
-															+ parsedSmi
-																	.get(prevCountSmi).blankLength);
-									Log.w("THREAD", "blankedWords="
-											+ blankedWords);
+									blankedWords = parsedSmi.get(prevCountSmi).gettext().substring(
+											parsedSmi.get(prevCountSmi).blankPos, parsedSmi.get(prevCountSmi).blankPos
+													+ parsedSmi.get(prevCountSmi).blankLength);
+									Log.w("THREAD", "blankedWords=" + blankedWords);
 
 									while (true) {
-										if (blankedWords
-												.equalsIgnoreCase(smiblank
-														.getText().toString()) == true) {
+										if (blankedWords.equalsIgnoreCase(smiblank.getText().toString()) == true) {
 											wordHit = true;
 											blankHit++;
 											Log.w("THREAD", "Word OK");
 
-											mImm.hideSoftInputFromWindow(
-													smiblank.getWindowToken(),
-													0);
+											mImm.hideSoftInputFromWindow(smiblank.getWindowToken(), 0);
 
 											mToast.show();
 											sp.play(Sound_R, 1, 1, 0, 0, 1);
@@ -557,34 +529,34 @@ public class video extends Activity {
 
 											break;
 										} else if (showAllPressed) {
-											// Log.w("THREAD","Show All Pressed");
+											// Log.w("THREAD","Show All
+											// Pressed");
 											break;
 										} else if (repeatPressed) {
 											long duration;
 											long adjustedStartTime;
 
-											// Log.w("THREAD","Smi START time="+parsedSmi.get(prevCountSmi).gettime());
+											// Log.w("THREAD","Smi START
+											// time="+parsedSmi.get(prevCountSmi).gettime());
 											// Log.w("THREAD","STOP="+parsedSmi.get(prevCountSmi+1).gettime());
 
-											// Log.w("THREAD","Measured START time="+startTime);
-											// Log.w("THREAD","STOP time="+stopTime);
+											// Log.w("THREAD","Measured START
+											// time="+startTime);
+											// Log.w("THREAD","STOP
+											// time="+stopTime);
 
-											if (parsedSmi.get(prevCountSmi)
-													.gettime() < startTime)
-												adjustedStartTime = parsedSmi
-														.get(prevCountSmi)
-														.gettime();
+											if (parsedSmi.get(prevCountSmi).gettime() < startTime)
+												adjustedStartTime = parsedSmi.get(prevCountSmi).gettime();
 											else
 												adjustedStartTime = startTime;
 											if (adjustedStartTime > 500)
 												adjustedStartTime = adjustedStartTime - 500;
-											duration = stopTime
-													- adjustedStartTime + 500;
-											// Log.w("THREAD","Adjusted START time="+adjustedStartTime);
+											duration = stopTime - adjustedStartTime + 500;
+											// Log.w("THREAD","Adjusted START
+											// time="+adjustedStartTime);
 											// Log.w("THREAD","duration="+duration);
 
-											videoView
-													.seekTo((int) (adjustedStartTime));
+											videoView.seekTo((int) (adjustedStartTime));
 											Thread.sleep(200);
 											videoView.start();
 											Thread.sleep(duration);
@@ -597,34 +569,26 @@ public class video extends Activity {
 									// Log.w("THREAD","PPT2");
 									if (showAllPressed) {
 										// show full text
-										showAllHandler
-												.sendMessage(showAllHandler
-														.obtainMessage());
+										showAllHandler.sendMessage(showAllHandler.obtainMessage());
 									}
 									// Log.w("THREAD","AFTER showAllPressed");
 									// wait util skip pressed
-									while (skipPressed == false
-											&& wordHit == false) {
+									while (skipPressed == false && wordHit == false) {
 
 										if (repeatPressed) {
 											long duration;
 											long adjustedStartTime;
 
-											if (parsedSmi.get(prevCountSmi)
-													.gettime() < startTime)
-												adjustedStartTime = parsedSmi
-														.get(prevCountSmi)
-														.gettime();
+											if (parsedSmi.get(prevCountSmi).gettime() < startTime)
+												adjustedStartTime = parsedSmi.get(prevCountSmi).gettime();
 											else
 												adjustedStartTime = startTime;
 
 											if (adjustedStartTime > 500)
 												adjustedStartTime = adjustedStartTime - 500;
-											duration = stopTime
-													- adjustedStartTime + 500;
+											duration = stopTime - adjustedStartTime + 500;
 
-											videoView
-													.seekTo((int) (adjustedStartTime));
+											videoView.seekTo((int) (adjustedStartTime));
 											Thread.sleep(200);
 											videoView.start();
 											Thread.sleep(duration);
@@ -643,10 +607,10 @@ public class video extends Activity {
 										wordHit = false;
 									}
 
-									// Log.w("THREAD","SCORE==> Total blank="+blankHappend+" Hit="+blankHit);
+									// Log.w("THREAD","SCORE==> Total
+									// blank="+blankHappend+" Hit="+blankHit);
 
-									vidStartPos = videoView
-											.getCurrentPosition();
+									vidStartPos = videoView.getCurrentPosition();
 									if (vidStartPos == 0 && blankHappend > 1) // the
 																				// case
 																				// which
@@ -669,10 +633,10 @@ public class video extends Activity {
 										videoView.seekTo((int) (vidStartPos));
 									}
 
-									insertBlank(blankHappend, blankHit,
-											vidStartPos);
+									insertBlank(blankHappend, blankHit, vidStartPos);
 
-									// Log.w("THREAD","Resume video="+vidStartPos);
+									// Log.w("THREAD","Resume
+									// video="+vidStartPos);
 									videoView.start();
 									videoPaused = false;
 
@@ -696,27 +660,31 @@ public class video extends Activity {
 			m2Toast.show();
 			sp.play(Sound_Skip, 1, 1, 0, 0, 1);
 			Log.w("Button", "SKIP");
+			mImm.hideSoftInputFromWindow(smiblank.getWindowToken(), 0);
 			break;
 		case R.id.button2: // show all
 			showAllPressed = true;
 			sp.play(Sound_F, 1, 1, 0, 0, 1);
 			Log.w("Button", "Show All");
+			mImm.hideSoftInputFromWindow(smiblank.getWindowToken(), 0);
 			break;
 		case R.id.button3: // repeat
 			repeatPressed = true;
 			Log.w("Button", "Repeat");
+			mImm.hideSoftInputFromWindow(smiblank.getWindowToken(), 0);
 			break;
 		case R.id.button4: // summary
 			Log.w("Button", "summary");
 			videoView.stopPlayback();
 			videoView.clearFocus();
 			finish();
-
-			Intent i = new Intent(getApplicationContext(),
-					SummaryActivity.class);
+			Intent i = new Intent(getApplicationContext(), SummaryActivity.class);
 			startActivity(i);
-
 			break;
+//		case R.id.video_back_button:
+//			Log.w("Button", "back");
+//			finish();
+//			break;
 		}
 	}
 
@@ -738,26 +706,21 @@ public class video extends Activity {
 			// Log.w("Handler","fullText="+parsedSmi.get(countSmi).gettext());
 
 			if (blankLength <= 0) {
-				subtitle.setText(Html.fromHtml(parsedSmi.get(countSmi)
-						.gettext()));
+				subtitle.setText(Html.fromHtml(parsedSmi.get(countSmi).gettext()));
 			} else {
 				String blankedText = null;
 				String blankedWords = null;
 				String blank = "";
 				int i;
 
-				blankedWords = parsedSmi
-						.get(countSmi)
-						.gettext()
-						.substring(parsedSmi.get(countSmi).blankPos,
-								parsedSmi.get(countSmi).blankPos + blankLength);
+				blankedWords = parsedSmi.get(countSmi).gettext().substring(parsedSmi.get(countSmi).blankPos,
+						parsedSmi.get(countSmi).blankPos + blankLength);
 
 				// Log.w("Handler","blankedWords="+blankedWords);
 				for (i = 0; i < blankLength; i++)
 					blank = blank + "_";
 
-				blankedText = parsedSmi.get(countSmi).gettext()
-						.replace(blankedWords, blank);
+				blankedText = parsedSmi.get(countSmi).gettext().replace(blankedWords, blank);
 				subtitle.setText(Html.fromHtml(blankedText));
 				smiblank.setText("");
 			}
@@ -768,8 +731,7 @@ public class video extends Activity {
 	Handler showAllHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			// Log.w("showAllHandler","Text="+parsedSmi.get(prevCountSmi).gettext());
-			subtitle.setText(Html.fromHtml(parsedSmi.get(prevCountSmi)
-					.gettext()));
+			subtitle.setText(Html.fromHtml(parsedSmi.get(prevCountSmi).gettext()));
 		}
 	};
 
@@ -777,8 +739,7 @@ public class video extends Activity {
 		countSmi = getSyncIndex(videoView.getCurrentPosition());
 		progress.move(parsedSmi.size(), countSmi);
 		/* Blank processing */
-		parsedSmi.get(countSmi).setBlank(countSmi, wordNotSentence, easyWord,
-				maxblank, frequency);
+		parsedSmi.get(countSmi).setBlank(countSmi, wordNotSentence, easyWord, maxblank, frequency);
 		if (parsedSmi.get(countSmi).blankLength > 0)
 			return 1;
 		return 0;
@@ -789,8 +750,7 @@ public class video extends Activity {
 
 		while (l <= h) {
 			m = (l + h) / 2;
-			if (parsedSmi.get(m).gettime() <= playTime
-					&& playTime < parsedSmi.get(m + 1).gettime()) {
+			if (parsedSmi.get(m).gettime() <= playTime && playTime < parsedSmi.get(m + 1).gettime()) {
 				return m;
 			}
 			if (playTime > parsedSmi.get(m + 1).gettime()) {
@@ -804,8 +764,7 @@ public class video extends Activity {
 
 	public int insertBlank(int blankHappend, int blankHit, int vidStartPos) {
 		DBHandler dbhandler = DBHandler.open(this);
-		long cnt = dbhandler.insertBlank(path, blankHappend, blankHit,
-				vidStartPos);
+		long cnt = dbhandler.insertBlank(path, blankHappend, blankHit, vidStartPos);
 		if (cnt == -1) {
 			Log.w("DB", "fail to save");
 		} else {

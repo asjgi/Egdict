@@ -13,9 +13,10 @@
 
         <Button
             android:id="@+id/setting_back_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="3dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="fill_vertical"
             android:background="@drawable/setting_back_button" />
 
         <Button
