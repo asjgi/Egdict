@@ -17,6 +17,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,8 +31,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 class ListData {
 	int type;
@@ -57,15 +60,18 @@ class ListData {
 	}
 }
 
-@SuppressLint("UseValueOf")
+@SuppressLint({ "UseValueOf", "InlinedApi", "NewApi", "InflateParams" })
 public class main extends Activity {
 	private TextView dirText;
 	private ArrayList<ListData> arrayList;
 	private ListView fileList;
+	private LinearLayout main_layout;
 	private GroupAdapter adapter;
 	private String nPath;
 	private ArrayList<String> PathList_prev;
 	private ArrayList<String> PathList_next;
+	private TextView empty_textview;
+	private TextView empty_subtext;
 
 	// private View nextBtn;
 	// private View prevBtn;
@@ -104,49 +110,23 @@ public class main extends Activity {
 	public void makeFileList() {
 		fileList = (ListView) findViewById(R.id.listView1);
 		dirText = (TextView) findViewById(R.id.dirText);
+		main_layout = (LinearLayout) findViewById(R.id.main_layout);
+		empty_textview = (TextView) findViewById(R.id.emptyText);
+		empty_subtext = (TextView) findViewById(R.id.empty_subText);
 		// TODO: destoryed with file directory path
 
 		Button option_menu = (Button) findViewById(R.id.title_button_more);
 		option_menu.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				openOptionsMenu();
 			}
 		});
 
-		// View virsioView = findViewById(R.id.imageButton5);
-		// virsioView.setOnClickListener(new OnClickListener() {
-		//
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent i = new Intent(getApplicationContext(),
-		// SettingsActivity.class);
-		// startActivity(i);
-		// }
-		// });
-
-		// View virsionBtn = findViewById(R.id.imageButton6);
-		// virsionBtn.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// virsionDlg.show();
-		// }
-		// });
-
-		// View infoBtn = findViewById(R.id.imageButton7);
-		// infoBtn.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// infoDlg.show();
-		// }
-		// });
-
 		String path = null;
 		String ext = Environment.getExternalStorageState();
 		if (ext.equals(Environment.MEDIA_MOUNTED)) {
-			path = Environment.getExternalStorageDirectory().getAbsolutePath()
-					+ "/";
+			path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
 		} else {
 			path = Environment.MEDIA_UNMOUNTED;
 		}
@@ -157,7 +137,7 @@ public class main extends Activity {
 		}
 		nPath = path + "/Download/";
 
-		final Builder errorDlg = new AlertDialog.Builder(this).setTitle("에러")
+		final Builder errorDlg = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).setTitle("에러")
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -170,8 +150,7 @@ public class main extends Activity {
 		// TODO: destoryed with file directory path
 
 		fileList.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ListData item = arrayList.get(position);
 				if (item.gettype() == 0) {
 					File dir = new File(nPath + item.getname() + "/");
@@ -185,9 +164,9 @@ public class main extends Activity {
 						updateFileList(nPath);
 					} else {
 						errorDlg.setMessage(
-								"Please, Connect to USB and into Download folder into the Eng MP4 file and SMI file.\n"
-										+ "(USB를 연결해서 Download 폴더에  MP4 영상파일과 함께 Smi 영어 자막 파일을 넣어주세요.)"
-										+ "(영상이 없으시면  가장 아랫쪽 버튼을 이요해 커뮤니티를 참조해 주세요.)")
+								"Please, Connect to USB with Desktop and put the MP4 file and SMI file in the Download folder.\n"
+										+ "(USB를 연결해서 Download 폴더에  MP4 영상파일과 함께 Smi영어 자막 파일을 넣어주세요.)"
+										+ "(영상이 없으시면  샘플 다운로드 페이지에서 받으세요.)")
 								.show();
 					}
 				} else if (item.gettype() == 1) {
@@ -198,9 +177,9 @@ public class main extends Activity {
 						startActivity(intent);
 					} else {
 						errorDlg.setMessage(
-								"Please, check in Download folder MP4 file and SMI file\n"
+								"Please, Connect to USB with Desktop and put the MP4 file and SMI file in the Download folder.\n"
 										+ "(Download 폴더에  Mp4 파일과 SMI의 파일을  확인하세요.)"
-										+ "(영상이 없으시면  가장 아랫쪽 버튼을 이요해 커뮤니티를 참조해 주세요.)")
+										+ "(영상이 없으시면  샘플 다운로드 페이지에서 받으세요.)")
 								.show();
 					}
 				}
@@ -211,63 +190,46 @@ public class main extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		final Builder virsionDlg = new AlertDialog.Builder(this)
+		final Builder virsionDlg = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
 				.setTitle(R.string.how_to_use)
-				.setMessage(
-						"\n"
-								+ "- Step 1 : 샘플영상을 다운받거나 자기가 원하는 영상의 SMI파일과 MP4파일을 Download폴더에 넣는다.\n"
-								+ "[first, Download to sample Movie or put in the download folder with AVI and SMI file ]\n"
-								+ "\n"
-								+ "- Step 2 : 옆에 설정 버튼을 눌러 난의도를 설정한다.\n"
-								+ "[second, Click the  Left_side_Button for doing setting level and frequency ]\n"
-								+ "\n"
-								+ "- Step 3 : 영상을 재생하여 플레이를 시작한다.\n"
-								+ "[Let`s play engdict palyer !!]\n"
-								+ "\n"
-								+ "- Notice -"
-								+ "\n"
-								+ "[영상 파일과 자막파일은 같은 이름으로 해야 인식이 가능합니다. 또한 영상파일 형식은 MP4형식을 자막파일은 SMI형식을 권장합니다.]\n"
-								+ "[Please, check to same MP4 file name and SMI. we recomand to play MP4 format movies and Smi]"
-								+ "\n")
+				.setMessage("\n" + "- Step 1 : 샘플영상을 다운받거나 자기가 원하는 영상의 SMI파일과 MP4파일을 Download폴더에 넣는다.\n"
+						+ "[first, Download to sample Movie or put in the download folder with MP4 and SMI file ]\n"
+						+ "\n" + "- Step 2 : 난의도를 설정한다.\n" + "[second, Set the level and frequency ]\n" + "\n"
+						+ "- Step 3 : 영상을 재생하여 플레이를 시작한다.\n" + "[Let`s play the engdict palyer !!]\n" + "\n"
+						+ "- Notice -" + "\n"
+						+ "[영상 파일과 자막파일은 같은 이름으로 해야 인식이 가능합니다. 또한 영상파일 형식은 MP4형식을 자막파일은 SMI형식을 권장합니다.]\n"
+						+ "[Please, check to the same as MP4 and SMI file name. we recomand to file of MP4 and SMI format movies]"
+						+ "\n")
 
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
-				})
-				.setNegativeButton("샘플영상 다운",
-						new DialogInterface.OnClickListener() {
+				}).setNegativeButton("Sample", new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(Intent.ACTION_VIEW);
-								intent.setData(Uri
-										.parse("http://m.blog.naver.com/asjgi/220109952200"));
-								startActivity(intent);
-							}
-						});
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse("http://m.blog.naver.com/asjgi/220011155455"));
+						startActivity(intent);
+					}
+				});
 
-		final Builder infoDlg = new AlertDialog.Builder(this)
+		final Builder infoDlg = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
 				.setTitle("Information")
-				.setMessage(
-						"[EngDictlayer]\n"
-								+ "- Made by : David.Ahn(In.KAIST).\n"
-								+ "- Contact me : asjgi@kaist.ac.kr\n"
-								+ "- Blog : http://blog.naver.com/asjgi\n"
-								+ "- Prologue: 저로 인해  좀더 살기 좋은  세상이 되었으면 좋겠습니다.")
-				.setPositiveButton("어플 평가 하기",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(Intent.ACTION_VIEW);
-								intent.setData(Uri
-										.parse("https://play.google.com/store/apps/details?id=engdict.player.notFree"));
-								startActivity(intent);
-							}
-						});
+				.setMessage("[EngDictlayer]\n" + "- Made by : David.Ahn.\n" + "- Designed by : HeyumUX\n"
+						+ "- Contact me : asjgi@kaist.ac.kr\n" + "- Blog : http://blog.naver.com/asjgi\n"
+						+ "- Prologue: 저로 인해  좀더 살기 좋은  세상이 되었으면 좋겠습니다.")
+				.setPositiveButton("어플 평가 하기", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(
+								Uri.parse("https://play.google.com/store/apps/details?id=engdict.player.notFree"));
+						startActivity(intent);
+					}
+				});
 
 		int id = item.getItemId();
 		switch (id) {
@@ -293,15 +255,15 @@ public class main extends Activity {
 		ListData temp;
 		int type;
 		long size = 0;
+		int count = 0;
 		String name;
 
-		final Builder virsionDlg = new AlertDialog.Builder(this)
+		final Builder virsionDlg = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
 				.setTitle("Empty space");
 
 		if (sPath == null) {
 			if (ext.equals(Environment.MEDIA_MOUNTED)) {
-				path = Environment.getExternalStorageDirectory()
-						.getAbsolutePath() + "/";
+				path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
 			} else {
 				path = Environment.MEDIA_UNMOUNTED;
 			}
@@ -314,43 +276,68 @@ public class main extends Activity {
 		nPath = path;
 
 		File files = new File(path);
-
 		if (files.listFiles().length == 0) {
 			path = "/storage/sdcard0/Download/";
 			dirText.setText(path);
 			nPath = path;
 			files = new File(path);
+
+			// virsionDlg.setMessage("Please, Connect USB and into Download
+			// folder into the Eng MP4 file and SMI file.\n"
+			// + "(USB를 연결해서 Download 폴더에 영상파일과 함께 Smi 영어 자막 파일을 넣어주세요.)" +
+			// "(영상이 없으시면 커뮤니티를 참조해 주세요.)");
+			// virsionDlg.show();
+			updateFileList(null);
+			Toast.makeText(this, "no files", Toast.LENGTH_SHORT).show();
+			ImageView empty_imgview = new ImageView(this);
+			empty_imgview.setImageResource(R.drawable.empty_img_view);
+			main_layout.addView(empty_imgview);
+			empty_textview.setText("You don`t have Video.");
+			empty_imgview.getLayoutDirection();
+			empty_textview.setTextSize(20);
+			empty_textview.setGravity(Gravity.CENTER);
+			empty_textview.setPadding(0, 750, 0, 50);
+			empty_subtext.setText("원하시는 영상을 넣거나 샘플영상을 다운받아서 EngDict를 시작해 보세요.");
+			empty_subtext.setTextSize(15);
+			empty_subtext.setGravity(Gravity.CENTER);
+			empty_imgview.setPadding(0, 30, 0, 30);
+			count++;
 		}
 
 		arrayList = new ArrayList<ListData>();
 
-		if (files.listFiles().length == 0) {
-			virsionDlg
-					.setMessage(
-							"Please, Connect USB and into Download folder into the Eng MP4 file and SMI file.\n"
-									+ "(USB를 연결해서 Download 폴더에 영상파일과 함께 Smi 영어 자막 파일을 넣어주세요.)"
-									+ "(영상이 없으시면  가장 아랫쪽 버튼을 이요해 커뮤니티를 참조해 주세요.)")
-					.show();
-			updateFileList(null);
-		}
-
-		if (files.listFiles().length >= 0) {
+		if (files.listFiles().length > 0) {
 			for (File file : files.listFiles()) {
 				name = file.getName();
-				if (file.getName().endsWith(".mpg")
-						|| file.getName().endsWith(".avi")
-						|| file.getName().endsWith(".wmv")
-						|| file.getName().endsWith(".asf")
-						|| file.getName().endsWith(".mp4")
-						|| file.getName().endsWith(".mkv")
-						|| file.getName().endsWith(".m4v")
-						|| file.getName().endsWith(".3gp")) {
+				if (file.getName().endsWith(".mpg") || file.getName().endsWith(".avi")
+						|| file.getName().endsWith(".wmv") || file.getName().endsWith(".asf")
+						|| file.getName().endsWith(".mp4") || file.getName().endsWith(".mkv")
+						|| file.getName().endsWith(".m4v") || file.getName().endsWith(".3gp")) {
 					type = 1;
 					size = file.length();
 					temp = new ListData(type, name, size);
 					arrayList.add(temp);
+					count++;
 				}
 			}
+			if (count == 0) {
+				ImageView empty_imgview = new ImageView(this);
+				empty_imgview.setImageResource(R.drawable.empty_img_view);
+				main_layout.addView(empty_imgview);
+				empty_textview.setText("You don`t have Video.");
+
+				empty_imgview.getLayoutDirection();
+				empty_textview.setTextSize(20);
+				empty_textview.setGravity(Gravity.CENTER);
+				empty_textview.setPadding(0, 750, 0, 50);
+				empty_subtext.setText("원하시는 영상을 넣거나 샘플영상을\n" + "다운받아서 EngDict를 시작해 보세요.");
+				empty_subtext.setTextSize(15);
+				empty_subtext.setGravity(Gravity.CENTER);
+				empty_imgview.setPadding(0, 30, 0, 30);
+				count++;
+			}
+			// Toast.makeText(this, "these are files",
+			// Toast.LENGTH_SHORT).show();
 		}
 
 		adapter = new GroupAdapter(this, R.layout.listview, arrayList);
@@ -377,8 +364,7 @@ public class main extends Activity {
 			}
 			temp = item.get(position);
 
-			Bitmap image = ThumbnailUtils.createVideoThumbnail(
-					nPath + temp.getname(),
+			Bitmap image = ThumbnailUtils.createVideoThumbnail(nPath + temp.getname(),
 					android.provider.MediaStore.Video.Thumbnails.MICRO_KIND);
 
 			if (temp == null) {
@@ -436,10 +422,8 @@ public class main extends Activity {
 			doubleSize = (double) (((double) intSize) / 100);
 			returnSize = df.format(doubleSize);
 			if (returnSize.lastIndexOf(".") != -1) {
-				if ("00".equals(returnSize.substring(returnSize.length() - 2,
-						returnSize.length()))) {
-					returnSize = returnSize.substring(0,
-							returnSize.lastIndexOf("."));
+				if ("00".equals(returnSize.substring(returnSize.length() - 2, returnSize.length()))) {
+					returnSize = returnSize.substring(0, returnSize.lastIndexOf("."));
 				}
 			}
 			return returnSize + "MB";
@@ -454,47 +438,36 @@ public class main extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
-			String alertTitle = getResources().getString(R.string.app_name);
-			String buttonMessage = getResources().getString(
-					R.string.alert_msg_exit);
+			String alertTitle = getResources().getString(R.string.app_close);
+			String buttonMessage = getResources().getString(R.string.alert_msg_exit);
 			String buttonYes = getResources().getString(R.string.button_yes);
 			String buttonNo = getResources().getString(R.string.button_no);
 
-			new AlertDialog.Builder(main.this)
-					.setTitle(alertTitle)
-					.setMessage(buttonMessage)
-					.setNegativeButton(buttonNo,
-							new DialogInterface.OnClickListener() {
+			new AlertDialog.Builder(main.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).setTitle(alertTitle)
+					.setMessage(buttonMessage).setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
+						@SuppressLint("NewApi")
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
 
-									moveTaskToBack(false);
-									Intent intent = new Intent(
-											Intent.ACTION_VIEW);
-									intent.setData(Uri
-											.parse("https://m.facebook.com/306473089529441"));
-									startActivity(intent);
+							moveTaskToBack(false);
+							Intent intent = new Intent(Intent.ACTION_VIEW);
+							intent.setData(Uri.parse("https://m.facebook.com/306473089529441"));
+							startActivity(intent);
 
-								}
-							})
-					.setPositiveButton(buttonYes,
-							new DialogInterface.OnClickListener() {
+						}
+					}).setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									moveTaskToBack(true);
-									finish();
-									android.os.Process
-											.killProcess(android.os.Process
-													.myPid());
-								}
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							moveTaskToBack(true);
+							finish();
+							android.os.Process.killProcess(android.os.Process.myPid());
+						}
 
-							}).show();
+					}).show();
 		}
 
 		return true;

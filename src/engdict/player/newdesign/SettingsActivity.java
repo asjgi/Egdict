@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class SettingsActivity extends Activity implements View.OnClickListener {
 	Button btnSave;
+	Button back_btn;
 	RadioGroup grpType;
 	RadioGroup grpVoca;
 	RatingBar skbSentence;
@@ -30,6 +31,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 		skbSentence = (RatingBar) findViewById(R.id.seekBar1);
 		skbFrequency = (SeekBar) findViewById(R.id.seekBar2);
 
+		back_btn = (Button) findViewById(R.id.setting_back_button);
+		back_btn.setOnClickListener(this);
 		btnSave = (Button) findViewById(R.id.save_btn);
 		btnSave.setOnClickListener(this);
 
@@ -69,6 +72,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
 	public void onClick(View view) {
 		DBHandler dbhandler = DBHandler.open(this);
+
+		if (view.getId() == R.id.setting_back_button) {
+			finish();
+		}
 		if (view.getId() == R.id.save_btn) {
 			/*
 			 * findViewById(R.id.radioButton1); //Sentence
@@ -92,26 +99,24 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 				voca = "300~";
 			}
 
-//			Toast.makeText(this,
-//					"rating the value" + skbSentence.getProgress(),
-//					Toast.LENGTH_SHORT).show();
+			// Toast.makeText(this,
+			// "rating the value" + skbSentence.getProgress(),
+			// Toast.LENGTH_SHORT).show();
 			maxblank = "" + skbSentence.getProgress();
 			frequency = "" + skbFrequency.getProgress();
 
-			long cnt = dbhandler
-					.insertSettings(type, maxblank, voca, frequency);
+			long cnt = dbhandler.insertSettings(type, maxblank, voca, frequency);
 			if (cnt == -1) {
 				Toast.makeText(this, "Fail to save", Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(this, "Save successfully", Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(this, "Save successfully", Toast.LENGTH_LONG).show();
 			}
-		}
 
 		dbhandler.close();
 
 		Intent intent = new Intent(SettingsActivity.this, main.class);
 		startActivity(intent);
 		finish();
+		}
 	}
 }

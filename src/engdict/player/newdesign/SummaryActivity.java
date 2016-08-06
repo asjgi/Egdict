@@ -2,7 +2,6 @@ package engdict.player.newdesign;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,14 +13,17 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 public class SummaryActivity extends Activity {
 	Button btn_screen_shot;
 	Button btnSelect;
+	Button btnclose;
 
 	String path;
 
@@ -38,14 +41,12 @@ public class SummaryActivity extends Activity {
 	int total_questions = 0;
 	int correct_answers = 0;
 	int mileage = 0;
-	
-	double score =0;
+
+	double score = 0;
 
 	// sound_pool
-
 	SoundPool sp;
 	int Sound_F, Sound_S;
-
 	// screen shot add
 
 	Bitmap bmScreen;
@@ -57,32 +58,52 @@ public class SummaryActivity extends Activity {
 	ImageView bmImage;
 	// TextView TextOut;
 
-	View screen;
+	TextView movie_title;
 	EditText EditTextIn;
+	LinearLayout container;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.summary);
+
+		container = (LinearLayout) findViewById(R.id.screen);
+		Intent intent = getIntent();
+		if (intent.hasExtra("FilePath")) {
+			path = intent.getStringExtra("FilePath");
+		}
+
+		movie_title = (TextView) findViewById(R.id.summary_movie_title);
+		movie_title.setText(path);
+
 		// Sound Management
 		sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 		Sound_F = sp.load(this, R.raw.camera_focusing, 1);
 		Sound_S = sp.load(this, R.raw.camera_shutter_click, 1);
 
+		btnclose = (Button) findViewById(R.id.summary_close);
 		btnSelect = (Button) findViewById(R.id.select_btn);
 
-		totalQuestions = (TextView) findViewById(R.id.Text1);
-//		correctAnswers = (TextView) findViewById(R.id.Text2);
+		totalQuestions = (TextView) findViewById(R.id.summary_score);
+		totalQuestions.setGravity(Gravity.CENTER);
+		// correctAnswers = (TextView) findViewById(R.id.Text2);
 
 		// add screen
 
 		btn_screen_shot = (Button) findViewById(R.id.screen_shot);
-		screen = (View) findViewById(R.id.screen);
 
 		DBHandler dbhandler = DBHandler.open(this);
 		path = dbhandler.getMediaNameOfLastBlank();
 		Cursor cursor = dbhandler.selectBlank(path);
+
+		btnclose.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 
 		if (cursor.getCount() > 0) {
 			total_questions = Integer.parseInt(cursor.getString(2));
@@ -93,93 +114,90 @@ public class SummaryActivity extends Activity {
 		mileage = (total_questions * 50) + (correct_answers * 100);
 		dbhandler.insertMileage(mileage);
 		dbhandler.close();
-		
+
 		score = (double) (correct_answers * 100);
-		
+
 		score = (double) (total_questions + score);
-		
-		
-		if(score < 99){
-			
-			score =0;
+
+		if (score < 99) {
+
+			score = 0;
 		}
 
-		String total_number_str = "" + (int)score;
+		String total_number_str = "" + (int) score;
 		totalQuestions.setText(total_number_str);
 
-//		String correct_number_str = "" + correct_answers;
-//		correctAnswers.setText(correct_number_str);
+		// String correct_number_str = "" + correct_answers;
+		// correctAnswers.setText(correct_number_str);
 
 		btn_screen_shot.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
 				// Launching Ranking Activity
-				screen.setDrawingCacheEnabled(true);
-				bmScreen = screen.getDrawingCache();
-				saveImage(bmScreen);
 
+				try {
+					saveImage();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				sp.play(Sound_F, 1, 1, 0, 0, 1);
 				sp.play(Sound_S, 1, 1, 0, 0, 1);
-
 			}
-
 		});
 
 		btnSelect.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
 				// Launching Ranking Activity
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse("https://m.facebook.com/306473089529441"));
+				startActivity(intent);
 				finish();
-
 			}
 		});
-
 	}
 
 	@SuppressLint("SimpleDateFormat")
-	protected void saveImage(Bitmap bmScreen2) {
-		// TODO Auto-generated method stub
-
+	protected void saveImage() throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyymmddhhmmss");
 		Date d = new Date();
 		String date = format.format(d);
-		String fname = "Engdict_Score_" + date;
-		File saved_image_file = new File(
-				Environment.getExternalStorageDirectory() + "/DCIM/Camera/" + fname
-				+ ".png");
-
-		try {
-
-			OutputStream out = new FileOutputStream(saved_image_file);
-			bmScreen2.compress(Bitmap.CompressFormat.PNG, 100, out);
-
-			out.flush();
-
-			out.close();
-
-			Toast toast = Toast.makeText(this, "Score Image saved in gallery",
-					Toast.LENGTH_LONG);
-
-			toast.setGravity(Gravity.CENTER_HORIZONTAL
-					| Gravity.CENTER_VERTICAL, 0, 0);
-
-			toast.show();
-
-			finish();
-
-			// TakeAbumAction();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-			finish();
+		String fname = "engdict_" + date;
+		String path = null;
+		String ext = Environment.getExternalStorageState();
+		if (ext.equals(Environment.MEDIA_MOUNTED)) {
+			path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
+		} else {
+			path = Environment.MEDIA_UNMOUNTED;
 		}
 
+		File dir = new File(path + "/DCIM/Camera/");
+		String nPath;
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+		nPath = dir + "/" + fname + ".jpg";
+		container.setDrawingCacheEnabled(true);
+		container.buildDrawingCache();
+		Bitmap captureview = container.getDrawingCache();
+		FileOutputStream fos;
+
+		try {
+			// Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, nPath, Toast.LENGTH_SHORT).show();
+			fos = new FileOutputStream(nPath);
+			captureview.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+			fos.close();
+			container.setDrawingCacheEnabled(false);
+			sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + nPath)));
+			Toast.makeText(this, "Be captured and saved Pic in the gallery", Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void TakeAbumAction() {
-
 		Intent intent = new Intent(Intent.ACTION_PICK);
 		intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
 		intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
